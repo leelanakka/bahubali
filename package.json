@@ -20,6 +20,7 @@
     "shelljs": "^0.8.3"
   },
   "dependencies": {
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "mocha_reporter": "git+https://github.com/craftybones/mocha-json-reporter.git"
   }
 }
