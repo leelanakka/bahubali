@@ -2,4 +2,5 @@
 .nyc_output/
 interns/
 .sw*
-
+node_modules
+package-lock.json

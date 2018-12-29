@@ -1,0 +1,25 @@
+{
+  "name": "bahubali",
+  "version": "1.0.0",
+  "description": "",
+  "main": "getUserCommits.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luckyganesh/bahubali.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luckyganesh/bahubali/issues"
+  },
+  "homepage": "https://github.com/luckyganesh/bahubali#readme",
+  "devDependencies": {
+    "shelljs": "^0.8.3"
+  },
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}
