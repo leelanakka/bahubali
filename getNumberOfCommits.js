@@ -16,3 +16,4 @@ userNames.map(y => {
   shelljs.rm('./commits.txt');
   shelljs.cd('../');
 });
+shelljs.cd('../');
