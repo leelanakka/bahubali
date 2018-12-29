@@ -27,4 +27,5 @@ userNames.map(x => {
   shelljs.exec("git pull");
   shelljs.cd("../");
 });
+
 shelljs.cd("../");
