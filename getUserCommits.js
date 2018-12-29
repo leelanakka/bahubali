@@ -18,6 +18,7 @@ userNames.map(x => {
     return;
   }
   shelljs.cd(x);
+  console.log(x)
   shelljs.exec("git pull");
   shelljs.cd("../");
 });
