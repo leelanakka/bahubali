@@ -2,11 +2,20 @@ const shelljs = require("shelljs");
 
 const reader = require("fs").readFileSync;
 
+const Table = require('cli-table');
+
+const ProgressBar = require('progress');
+
 let userNames = reader("./userNames.txt", "utf8").split("\n");
 userNames.pop();
-
+const bar = new ProgressBar('running Tests[:bar] :percent', { head: '>' ,total: userNames.length+1 });
 shelljs.cd("./interns");
 
+let table = new Table({
+  head: ['UserName','Commits','Total Tests', 'Passing Tests', 'Coverage','My Total Tests','Passing']
+});
+
+bar.tick();
 userNames.map(y => {
   x = "./wc-" + y;
   shelljs.cd(x);
@@ -15,28 +24,20 @@ userNames.map(y => {
   data1 = JSON.parse(data1);
   shelljs.exec("git log --oneline | wc -l > commits.txt");
   let commits = reader("commits.txt", "utf8").split("\n")[0];
-  console.log(y + "\nnumberOfCommits" + commits);
   shelljs.rm("./commits.txt");
-  console.log(
-    "totalTests:" + data1.total + "\npassedTests:" + data1.passed.length + "\n"
-  );
-  shelljs.cp("../../test/file", "file");
+  shelljs.cp("../../test/testFiles/*", "./");
   let command = "mocha  --recursive --reporter mocha_reporter ../../test";
-  shelljs.exec(command);
+  shelljs.exec(command+" > /dev/null");
   let mochaTest = "nyc -r json-summary mocha --recursive > /dev/null";
-  shelljs.exec(mochaTest );
+  shelljs.exec(mochaTest);
   let coverage = reader("coverage/coverage-summary.json", "utf8");
   coverage = JSON.parse(coverage);
-  console.log("total tests coverage"+coverage.total.lines.pct);
   let data2 = reader("./__report.json", "utf8");
   data2 = JSON.parse(data2);
-  console.log(
-    "mytotalTests:" +
-      data2.total +
-      "\nmypassedTests:" +
-      data2.passed.length +
-      "\n"
-  );
   shelljs.cd("../");
+  table.push([y,commits,data1.total,data1.passed.length,coverage.total.lines.pct,data2.total,data2.passed.length]);
+  bar.tick();
 });
 shelljs.cd("../");
+
+console.log(table.toString());
