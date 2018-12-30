@@ -5,3 +5,5 @@ interns/
 node_modules
 report.json
 package-lock.json
+generateHtmlReport.js
+index.html
