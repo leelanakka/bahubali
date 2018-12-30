@@ -1,36 +1,26 @@
 const shelljs = require("shelljs");
 
-const reader = require("fs").readFileSync;
-
-const Table = require("cli-table");
+const fs = require('fs');
+const reader = fs.readFileSync;
+const write = fs.writeFileSync;
 
 const ProgressBar = require("progress");
 
 let userNames = reader("./userNames.txt", "utf8").split("\n");
 userNames = userNames.filter(x => x !== "").sort();
+
 const bar = new ProgressBar("running Tests[:bar] :percent", {
   complete: "#",
   total: userNames.length + 1
 });
-shelljs.cd("./interns");
 
-let table = new Table({
-  head: [
-    "UserName",
-    "Sha ID",
-    "Commits",
-    "Total Tests",
-    "Passing Tests",
-    "Coverage",
-    "My Total Tests",
-    "Passing"
-  ]
-});
+let finalData = [];
 
 bar.tick();
-userNames.map(y => {
-  x = "./wc-" + y;
-  shelljs.cd(x);
+shelljs.cd("./interns");
+userNames.map(userName => {
+  let repo = "./wc-" + userName;
+  shelljs.cd(repo);
   shelljs.exec(
     "mocha  --recursive --reporter mocha_reporter 1>/dev/null 2>/dev/null"
   );
@@ -38,7 +28,6 @@ userNames.map(y => {
   data1 = JSON.parse(data1);
   shelljs.exec("git log --oneline > commits.txt");
   let commits = reader("commits.txt", "utf8").split("\n").length;
-  // commits = shelljs.exec("wc -l commits.txt");
   let shaID = reader("commits.txt", "utf8").split(" ")[0];
   shelljs.rm("./commits.txt");
   shelljs.cp("../../test/testFiles/*", "./");
@@ -52,18 +41,25 @@ userNames.map(y => {
   let data2 = reader("./__report.json", "utf8");
   data2 = JSON.parse(data2);
   shelljs.cd("../");
-  table.push([
-    y,
+  const  noOfCommits = commits
+  const MochaTestsTotal = data1.total
+  const MochaTestPassed = data1.passed.length
+  const TotalTests = data2.total
+  const TestsPassed = data2.passed.length
+  coverage = coverage.total.lines.pct;
+  finalData.push({
+    userName,
     shaID,
-    commits,
-    data1.total,
-    data1.passed.length,
-    coverage.total.lines.pct,
-    data2.total,
-    data2.passed.length
-  ]);
+    noOfCommits,
+    MochaTestsTotal,
+    MochaTestPassed,
+    coverage,
+    TotalTests,
+    TestsPassed
+  })
   bar.tick();
 });
 shelljs.cd("../");
 
-console.log(table.toString());
+finalData = JSON.stringify(finalData);
+write('./report.json',finalData,'utf8');

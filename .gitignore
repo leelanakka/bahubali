@@ -3,4 +3,5 @@
 interns/
 .sw*
 node_modules
+report.json
 package-lock.json
