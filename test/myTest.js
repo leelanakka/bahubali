@@ -79,4 +79,19 @@ describe("wc", function() {
     assert.deepEqual(actual, expected);
   });
 
+  it("should return no of characters along with the file name", function() {
+    let actualOut = shelljs.exec("node ./wc.js -w foo-bar");
+    let actual = filtering(actualOut.stdout);
+    let expectedOut = shelljs.exec("wc -w foo-bar");
+    let expected = filtering(expectedOut);
+    assert.deepEqual(actual, expected);
+  });
+
+  it("should return no of characters along with the file name", function() {
+    let actualOut = shelljs.exec("node ./wc.js -w foo-bar-foo");
+    let actual = filtering(actualOut.stdout);
+    let expectedOut = shelljs.exec("wc -w foo-bar-foo");
+    let expected = filtering(expectedOut);
+    assert.deepEqual(actual, expected);
+  });
 });

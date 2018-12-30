@@ -1,0 +1,18 @@
+84b461a installed progess in dependencies
+8e8438e added dependences of progress node module
+74adbfe added dev null
+baeb548 used progress bar and sorted the names based on the names
+8c5ffb3 Added feature of progress bar and table.
+adf1438 renamed the file
+0885e5a added feature of tests coverage percentage
+a12dc01 removed file from home directory
+5f2e2f3 added our own tests
+ce5fb0b modifies install of npm module in globally
+42b716a added feature of getting tets
+4cb4dd5 it will install mocha reporter package in every repo
+0e14a44 Added new line to get back of directory.
+46e3d45 Added mocha_reporter in package.json
+18bf54e it will show user name every time its pulling repos
+12e6a5d Added feature of getting number of commits.
+1ae13fe added feature of cloning the repos
+3888fe0 Added interns repo userNames.
