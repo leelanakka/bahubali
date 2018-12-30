@@ -43,7 +43,7 @@ userNames.map(userName => {
   shelljs.cd("../");
   const  noOfCommits = commits
   const MochaTestsTotal = data1.total
-  const MochaTestPassed = data1.passed.length
+  const MochaTestsPassed = data1.passed.length
   const TotalTests = data2.total
   const TestsPassed = data2.passed.length
   coverage = coverage.total.lines.pct;
@@ -52,7 +52,7 @@ userNames.map(userName => {
     shaID,
     noOfCommits,
     MochaTestsTotal,
-    MochaTestPassed,
+    MochaTestsPassed,
     coverage,
     TotalTests,
     TestsPassed
