@@ -23,6 +23,6 @@
     "cli-table": "^0.3.1",
     "mocha": "^5.2.0",
     "mocha_reporter": "git+https://github.com/craftybones/mocha-json-reporter.git",
-    "progress":"^6.5.0"
+    "progress": "^2.0.3"
   }
 }
