@@ -7,8 +7,8 @@ const Table = require('cli-table');
 const ProgressBar = require('progress');
 
 let userNames = reader("./userNames.txt", "utf8").split("\n");
-userNames.pop();
-const bar = new ProgressBar('running Tests[:bar] :percent', { head: '>' ,total: userNames.length+1 });
+userNames = userNames.filter((x) => x !== "").sort();
+const bar = new ProgressBar('running Tests[:bar] :percent', { complete: '#' ,total: userNames.length+1 });
 shelljs.cd("./interns");
 
 let table = new Table({

@@ -78,4 +78,5 @@ describe("wc", function() {
     let expected = filtering(expectedOut);
     assert.deepEqual(actual, expected);
   });
+
 });
