@@ -1,6 +1,6 @@
 const shelljs = require("shelljs");
 
-const fs = require('fs');
+const fs = require("fs");
 const reader = fs.readFileSync;
 const write = fs.writeFileSync;
 
@@ -21,9 +21,7 @@ shelljs.cd("./interns");
 userNames.map(userName => {
   let repo = "./wc-" + userName;
   shelljs.cd(repo);
-  shelljs.exec(
-    "mocha  --recursive --reporter mocha_reporter 1>/dev/null 2>/dev/null"
-  );
+  shelljs.exec("mocha  --recursive --reporter mocha_reporter 1>/dev/null 2>/dev/null");
   let data1 = reader("./__report.json", "utf8");
   data1 = JSON.parse(data1);
   shelljs.exec("git log --oneline > commits.txt");
@@ -41,11 +39,11 @@ userNames.map(userName => {
   let data2 = reader("./__report.json", "utf8");
   data2 = JSON.parse(data2);
   shelljs.cd("../");
-  const  noOfCommits = commits
-  const MochaTestsTotal = data1.total
-  const MochaTestsPassed = data1.passed.length
-  const TotalTests = data2.total
-  const TestsPassed = data2.passed.length
+  const noOfCommits = commits - 1;
+  const MochaTestsTotal = data1.total;
+  const MochaTestsPassed = data1.passed.length;
+  const TotalTests = data2.total;
+  const TestsPassed = data2.passed.length;
   coverage = coverage.total.lines.pct;
   finalData.push({
     userName,
@@ -56,10 +54,9 @@ userNames.map(userName => {
     coverage,
     TotalTests,
     TestsPassed
-  })
+  });
   bar.tick();
 });
 shelljs.cd("../");
-
 finalData = JSON.stringify(finalData);
-write('./report.json',finalData,'utf8');
+write("./report.json", finalData, "utf8");
