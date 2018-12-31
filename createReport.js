@@ -13,6 +13,35 @@ const sorting = function(a, b) {
 data = JSON.parse(data);
 data = data.sort(sorting);
 
+userArgs = process.argv.slice(2);
+
+const filterErrors = function(data){
+    return data.filter((user) => {
+        let coveragePassed = (user.coverage < 100)
+        let MochaTests = (user.MochaTestsPassed < user.MochaTestsTotal);
+        let BahubaliTests = (user.TestsPassed < user.TotalTests);
+        let result = coveragePassed || MochaTests || BahubaliTests;
+        return result;
+    })
+}
+
+const exactPersons = function(userArgs,data){
+    return data.filter((user) => {
+        return userArgs.includes(user.userName);
+    })
+}
+
+const parser = function(userArgs,data){
+    if(userArgs.length == 0){
+        return data;
+    }
+    if(userArgs[0] === "error"){
+        return filterErrors(data);
+    }
+    return exactPersons(userArgs,data)
+}
+
+data = parser(process.argv.slice(2),data)
 const head = [
   "UserName",
   "ShaId",
