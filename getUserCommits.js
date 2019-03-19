@@ -20,8 +20,6 @@ userNames.map(x => {
   if (!repos.includes(x)) {
     let y = "git clone https://github.com/STEP-tw/" + x + ".git 1> /dev/null 2>/dev/null";
     shelljs.exec(y);
-    shelljs.cd(x);
-    shelljs.cd("../");
     return;
   }
   shelljs.cd(x);
